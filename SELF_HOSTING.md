@@ -156,6 +156,10 @@ certificate automatically.
 | Lead records | D1 database (`DB`) | `db/schema.ts`, `app/api/quote/route.ts` |
 | Uploaded photos | R2 bucket (`R2`) | `app/api/quote`, served at `/uploads/...` |
 | Text to John | Twilio (via secrets) | `lib/notify.ts` |
+| Abuse protection | Workers Rate Limiting + honeypot | `wrangler.deploy.jsonc` `ratelimits`, `app/api/quote` |
+
+> The rate limiter needs **no setup** — `namespace_id` is an arbitrary value you
+> pick (Cloudflare creates the counters on first use), so it deploys as-is.
 
 ## Why `npm run deploy` has an extra step
 

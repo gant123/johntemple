@@ -63,17 +63,24 @@ async function sendSms(
   }
 }
 
+// Collapse newlines/whitespace so a user-supplied value can't inject extra
+// lines (e.g. a fake "Phone:" line) into the `\n`-joined SMS body.
+function oneLine(value: string): string {
+  return value.replace(/\s+/g, " ").trim();
+}
+
 function buildJohnText(p: QuotePayload): string {
   const lines = [
     "New quote request - Temple Property Care",
     "",
-    `Name: ${p.name}`,
-    `Phone: ${p.phone}`,
+    `Name: ${oneLine(p.name)}`,
+    `Phone: ${oneLine(p.phone)}`,
   ];
-  if (p.address) lines.push(`Address: ${p.address}`);
-  if (p.services.length) lines.push(`Services: ${p.services.join(", ")}`);
-  if (p.preferredDay) lines.push(`Preferred day: ${p.preferredDay}`);
-  if (p.message) lines.push(`Notes: ${p.message}`);
+  if (p.address) lines.push(`Address: ${oneLine(p.address)}`);
+  if (p.services.length)
+    lines.push(`Services: ${p.services.map(oneLine).join(", ")}`);
+  if (p.preferredDay) lines.push(`Preferred day: ${oneLine(p.preferredDay)}`);
+  if (p.message) lines.push(`Notes: ${oneLine(p.message)}`);
   if (p.photoUrls.length) {
     lines.push("", `Photos (${p.photoUrls.length}):`);
     for (const url of p.photoUrls) lines.push(url);
@@ -82,10 +89,10 @@ function buildJohnText(p: QuotePayload): string {
 }
 
 function buildCustomerText(p: QuotePayload): string {
-  const first = p.name.split(/\s+/)[0] || "there";
+  const first = oneLine(p.name).split(" ")[0] || "there";
   return (
     `Hi ${first}, thanks for reaching out to Temple Property Care! ` +
-    `John got your request and will call you soon at ${p.phone} to set up your free quote. ` +
+    `John got your request and will call you soon at ${oneLine(p.phone)} to set up your free quote. ` +
     `- John Temple`
   );
 }
