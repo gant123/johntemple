@@ -22,8 +22,8 @@ const galleryProjects: Project[] = [
       "https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=900&q=80",
     label: "Cleanup and trimming",
     blurb:
-      "A tangled, neglected bed cleared out, shrubs shaped, and the whole area tidied up.",
-    tags: ["Bush Trimming", "Yard Cleanup"],
+      "A tangled, neglected bed cleared out, edged, and the whole area tidied up.",
+    tags: ["Yard Cleanup", "Weed Eating"],
   },
   {
     before:
@@ -32,8 +32,8 @@ const galleryProjects: Project[] = [
       "https://images.unsplash.com/photo-1600411833114-98f05b5a20af?auto=format&fit=crop&w=900&q=80",
     label: "Seasonal maintenance",
     blurb:
-      "Fresh mulch, trimmed beds, and a full property reset ready for the season ahead.",
-    tags: ["Mulch Installation", "Seasonal Maintenance"],
+      "Beds cleaned up and a full property reset ready for the season ahead.",
+    tags: ["Yard Cleanup", "Seasonal Maintenance"],
   },
 ];
 
@@ -52,16 +52,6 @@ const services = [
     icon: "M12 3v18M5 7c4 1 10 1 14 0M5 17c4-1 10-1 14 0",
     title: "Weed Eating",
     text: "Careful trimming around fences, posts, trees, beds, and hard-to-reach areas.",
-  },
-  {
-    icon: "M5 12c4-6 10-6 14 0-4 6-10 6-14 0Zm7 0v8",
-    title: "Bush Trimming",
-    text: "Neat shrub shaping and trimming that protects growth and improves the view.",
-  },
-  {
-    icon: "M4 14c4-4 12-4 16 0M6 18h12M8 10l4-6 4 6",
-    title: "Mulch Installation",
-    text: "Fresh mulch installation for beds, trees, moisture control, and clean color.",
   },
   {
     icon: "M6 18h12M8 18V8l4-4 4 4v10M4 22h16",
