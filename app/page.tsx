@@ -13,26 +13,26 @@ const galleryProjects: Project[] = [
       "Shaggy, overgrown grass brought back to a crisp, even cut — stepping stones and fire pit clean and clear again.",
     tags: ["Lawn Mowing", "Yard Cleanup"],
   },
-  {
-    before:
-      "https://images.unsplash.com/photo-1592150621744-aca64f48394a?auto=format&fit=crop&w=900&q=80",
-    after:
-      "https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=900&q=80",
-    label: "Cleanup and trimming",
-    blurb:
-      "A tangled, neglected bed cleared out, edged, and the whole area tidied up.",
-    tags: ["Yard Cleanup", "Weed Eating"],
-  },
-  {
-    before:
-      "https://images.unsplash.com/photo-1599685315640-0c975a44f78c?auto=format&fit=crop&w=900&q=80",
-    after:
-      "https://images.unsplash.com/photo-1600411833114-98f05b5a20af?auto=format&fit=crop&w=900&q=80",
-    label: "Seasonal maintenance",
-    blurb:
-      "Beds cleaned up and a full property reset ready for the season ahead.",
-    tags: ["Yard Cleanup", "Seasonal Maintenance"],
-  },
+  // {
+  //   before:
+  //     "https://images.unsplash.com/photo-1592150621744-aca64f48394a?auto=format&fit=crop&w=900&q=80",
+  //   after:
+  //     "https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=900&q=80",
+  //   label: "Cleanup and trimming",
+  //   blurb:
+  //     "A tangled, neglected bed cleared out, edged, and the whole area tidied up.",
+  //   tags: ["Yard Cleanup", "Weed Eating"],
+  // },
+  // {
+  //   before:
+  //     "https://images.unsplash.com/photo-1599685315640-0c975a44f78c?auto=format&fit=crop&w=900&q=80",
+  //   after:
+  //     "https://images.unsplash.com/photo-1600411833114-98f05b5a20af?auto=format&fit=crop&w=900&q=80",
+  //   label: "Seasonal maintenance",
+  //   blurb:
+  //     "Beds cleaned up and a full property reset ready for the season ahead.",
+  //   tags: ["Yard Cleanup", "Seasonal Maintenance"],
+  // },
 ];
 
 const services = [
