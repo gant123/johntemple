@@ -1,13 +1,19 @@
 const heroImage =
   "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=2200&q=85";
 
-const galleryImages = [
+import QuoteForm from "./quote-form";
+import BeforeAfterGallery, { type Project } from "./before-after-gallery";
+
+const galleryProjects: Project[] = [
   {
     before:
       "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=900&q=80",
     after:
       "https://images.unsplash.com/photo-1626417288131-55d96b0b5852?auto=format&fit=crop&w=900&q=80",
     label: "Front lawn refresh",
+    blurb:
+      "Overgrown and patchy turned into a crisp, even cut with clean edges along the walkway.",
+    tags: ["Lawn Mowing", "Edging"],
   },
   {
     before:
@@ -15,6 +21,9 @@ const galleryImages = [
     after:
       "https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=900&q=80",
     label: "Cleanup and trimming",
+    blurb:
+      "A tangled, neglected bed cleared out, shrubs shaped, and the whole area tidied up.",
+    tags: ["Bush Trimming", "Yard Cleanup"],
   },
   {
     before:
@@ -22,6 +31,9 @@ const galleryImages = [
     after:
       "https://images.unsplash.com/photo-1600411833114-98f05b5a20af?auto=format&fit=crop&w=900&q=80",
     label: "Seasonal maintenance",
+    blurb:
+      "Fresh mulch, trimmed beds, and a full property reset ready for the season ahead.",
+    tags: ["Mulch Installation", "Seasonal Maintenance"],
   },
 ];
 
@@ -303,41 +315,10 @@ export default function Home() {
       <section id="gallery" className="bg-white px-5 py-16 sm:px-8 sm:py-20">
         <SectionIntro
           eyebrow="Gallery"
-          title="Before and after property care"
-          text="These placeholder images are ready to be replaced with real Temple Property Care projects as the gallery grows."
+          title="See the before &amp; after for yourself"
+          text="Real Southeast Texas yards, transformed. Drag the slider on any project to reveal the difference John's work makes."
         />
-        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-3">
-          {galleryImages.map((item) => (
-            <article
-              key={item.label}
-              className="overflow-hidden rounded-lg bg-[#f5f5f5] shadow-[0_18px_45px_rgba(25,67,31,0.10)]"
-            >
-              <div className="grid grid-cols-2">
-                <figure className="relative">
-                  <img
-                    src={item.before}
-                    alt={`${item.label} before`}
-                    className="h-56 w-full object-cover sm:h-64"
-                  />
-                  <figcaption className="absolute left-3 top-3 rounded bg-black/65 px-3 py-1 text-xs font-black uppercase text-white">
-                    Before
-                  </figcaption>
-                </figure>
-                <figure className="relative">
-                  <img
-                    src={item.after}
-                    alt={`${item.label} after`}
-                    className="h-56 w-full object-cover sm:h-64"
-                  />
-                  <figcaption className="absolute left-3 top-3 rounded bg-[#2E7D32]/90 px-3 py-1 text-xs font-black uppercase text-white">
-                    After
-                  </figcaption>
-                </figure>
-              </div>
-              <h3 className="p-5 text-lg font-black">{item.label}</h3>
-            </article>
-          ))}
-        </div>
+        <BeforeAfterGallery projects={galleryProjects} />
       </section>
 
       <section id="reviews" className="px-5 py-16 sm:px-8 sm:py-20">
@@ -396,11 +377,12 @@ export default function Home() {
               Contact
             </p>
             <h2 className="mt-3 text-3xl font-black sm:text-4xl">
-              Request a free quote from John
+              Not a portal. Just a smart form.
             </h2>
             <p className="mt-5 text-base leading-8 text-[#516153]">
-              Tell John what you need help with, where the property is located,
-              and the best way to reach you.
+              No accounts, no app, no runaround. Fill out a few details, add a
+              photo or two, and hit submit. John gets a text the moment you do,
+              and you get a confirmation. That&apos;s it.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
@@ -421,81 +403,7 @@ export default function Home() {
             </p>
           </div>
 
-          <form
-            action="mailto:quotes@templepropertycare.com"
-            method="post"
-            encType="text/plain"
-            data-notification-recipient="john-temple"
-            className="grid gap-4 rounded-lg bg-[#f8fbf8] p-5 shadow-[0_18px_45px_rgba(25,67,31,0.10)] sm:p-7"
-          >
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="grid gap-2 text-sm font-bold">
-                Name
-                <input
-                  name="name"
-                  required
-                  className="rounded-lg border border-[#d7e8d8] bg-white px-4 py-3 outline-none focus:border-[#2E7D32]"
-                />
-              </label>
-              <label className="grid gap-2 text-sm font-bold">
-                Phone
-                <input
-                  name="phone"
-                  type="tel"
-                  required
-                  className="rounded-lg border border-[#d7e8d8] bg-white px-4 py-3 outline-none focus:border-[#2E7D32]"
-                />
-              </label>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="grid gap-2 text-sm font-bold">
-                Email
-                <input
-                  name="email"
-                  type="email"
-                  className="rounded-lg border border-[#d7e8d8] bg-white px-4 py-3 outline-none focus:border-[#2E7D32]"
-                />
-              </label>
-              <label className="grid gap-2 text-sm font-bold">
-                Address
-                <input
-                  name="address"
-                  className="rounded-lg border border-[#d7e8d8] bg-white px-4 py-3 outline-none focus:border-[#2E7D32]"
-                />
-              </label>
-            </div>
-            <label className="grid gap-2 text-sm font-bold">
-              Service Needed
-              <select
-                name="serviceNeeded"
-                className="rounded-lg border border-[#d7e8d8] bg-white px-4 py-3 outline-none focus:border-[#2E7D32]"
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Select a service
-                </option>
-                {services.map((service) => (
-                  <option key={service.title}>{service.title}</option>
-                ))}
-              </select>
-            </label>
-            <label className="grid gap-2 text-sm font-bold">
-              Message
-              <textarea
-                name="message"
-                rows={5}
-                className="rounded-lg border border-[#d7e8d8] bg-white px-4 py-3 outline-none focus:border-[#2E7D32]"
-              />
-            </label>
-            <input
-              type="hidden"
-              name="notificationIntent"
-              value="Email John Temple with the submitted quote request"
-            />
-            <button className="rounded-lg bg-[#2E7D32] px-7 py-4 text-base font-black text-white transition hover:-translate-y-1 hover:bg-[#256a2a]">
-              Request Free Quote
-            </button>
-          </form>
+          <QuoteForm services={services.map((service) => service.title)} />
         </div>
       </section>
 

@@ -1,0 +1,57 @@
+{
+	// Self-hosted Cloudflare Worker config for Temple Property Care.
+	// The app is built by `npm run build` (vinext) into ./dist, then deployed
+	// with `npm run deploy`. See SELF_HOSTING.md for first-time setup.
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "johntemple",
+	"main": "dist/server/index.js",
+	"compatibility_date": "2026-05-15",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	// vinext already produced a single bundled worker; don't re-bundle it.
+	"no_bundle": true,
+	"rules": [
+		{
+			"type": "ESModule",
+			"globs": [
+				"**/*.js",
+				"**/*.mjs"
+			]
+		}
+	],
+	// Static client assets (CSS, JS, fonts, favicon). Non-asset routes fall
+	// through to the worker for SSR / API routes.
+	"assets": {
+		"directory": "dist/client",
+		"binding": "ASSETS"
+	},
+	"observability": {
+		"enabled": true
+	},
+	// Lead database. Replace database_id after `wrangler d1 create johntemple-db`.
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "johntemple-db",
+			"database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+			"migrations_dir": "drizzle"
+		},
+		{
+			"binding": "johntemple_db",
+			"database_name": "johntemple-db",
+			"database_id": "881037d3-23b1-40e3-b0db-7846d9c4d64b"
+		}
+	],
+	// Photo uploads from the quote form.
+	"r2_buckets": [
+		{
+			"binding": "R2",
+			"bucket_name": "johntemple-photos"
+		},
+		{
+			"bucket_name": "johntemple-photos",
+			"binding": "johntemple_photos"
+		}
+	]
+}
