@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 
 type Photo = { id: string; file: File; url: string };
 
+const MAX_PHOTOS = 6;
+
 const dayOptions = [
   "As soon as possible",
   "Sometime this week",
@@ -32,16 +34,19 @@ export default function QuoteForm({ services }: { services: string[] }) {
 
   function addFiles(list: FileList | null) {
     if (!list) return;
-    const next: Photo[] = [];
-    for (const file of Array.from(list)) {
-      if (!file.type.startsWith("image/")) continue;
-      next.push({
+    // Only create object URLs for files we'll actually keep — creating one for
+    // a file that the 6-photo cap would drop would leak it (never revocable,
+    // since it never lands in state).
+    const remaining = Math.max(0, MAX_PHOTOS - photos.length);
+    const next: Photo[] = Array.from(list)
+      .filter((file) => file.type.startsWith("image/"))
+      .slice(0, remaining)
+      .map((file) => ({
         id: `${file.name}-${file.size}-${crypto.randomUUID().slice(0, 6)}`,
         file,
         url: URL.createObjectURL(file),
-      });
-    }
-    setPhotos((prev) => [...prev, ...next].slice(0, 6));
+      }));
+    if (next.length) setPhotos((prev) => [...prev, ...next]);
   }
 
   function removePhoto(id: string) {
@@ -143,6 +148,23 @@ export default function QuoteForm({ services }: { services: string[] }) {
       onSubmit={handleSubmit}
       className="grid gap-5 rounded-2xl bg-[#f8fbf8] p-5 shadow-[0_18px_45px_rgba(25,67,31,0.10)] sm:p-7"
     >
+      {/* Honeypot: hidden from people, tempting to bots. Server silently drops
+          any submission where this is filled. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-[9999px] top-0 h-0 w-0 overflow-hidden"
+      >
+        <label>
+          Company
+          <input
+            type="text"
+            name="company"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </label>
+      </div>
+
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="grid gap-2 text-sm font-bold text-[#214625]">
           Name

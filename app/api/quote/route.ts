@@ -16,8 +16,13 @@ const ALLOWED_TYPES = new Set([
   "image/gif",
 ]);
 
+type RateLimiter = {
+  limit(options: { key: string }): Promise<{ success: boolean }>;
+};
+
 type Bindings = {
   R2?: R2Bucket;
+  QUOTE_RATE_LIMITER?: RateLimiter;
   TWILIO_ACCOUNT_SID?: string;
   TWILIO_AUTH_TOKEN?: string;
   TWILIO_FROM?: string;
@@ -90,6 +95,31 @@ export async function POST(request: Request) {
     );
   }
 
+  const b = bindings();
+
+  // Honeypot: a hidden field real users never see. Bots fill it; we pretend
+  // success and do nothing (no SMS, no storage), so they don't retry.
+  if (String(form.get("company") ?? "").trim() !== "") {
+    return Response.json({ ok: true });
+  }
+
+  // Per-IP rate limit so the form can't be weaponised to flood Twilio (cost)
+  // or text arbitrary numbers. Skipped automatically if the binding is absent
+  // (e.g. local dev). Pairs with a Cloudflare WAF rule for defense in depth.
+  if (b.QUOTE_RATE_LIMITER) {
+    const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
+    const { success } = await b.QUOTE_RATE_LIMITER.limit({ key: ip });
+    if (!success) {
+      return Response.json(
+        {
+          ok: false,
+          error: "Too many requests. Please wait a minute and try again.",
+        },
+        { status: 429 },
+      );
+    }
+  }
+
   const name = String(form.get("name") ?? "").trim();
   const phone = String(form.get("phone") ?? "").trim();
   const address = String(form.get("address") ?? "").trim();
@@ -155,7 +185,6 @@ export async function POST(request: Request) {
     console.error("[quote] failed to persist request:", err);
   }
 
-  const b = bindings();
   const notify = await sendQuoteNotifications(
     payload,
     {
@@ -171,11 +200,15 @@ export async function POST(request: Request) {
     },
   );
 
-  const notifyStatus = notify.johnTexted
-    ? "sent"
-    : notify.emailed
+  // "sent" when a channel delivered; "skipped" when no channel was configured
+  // (a setup gap, not a delivery failure); "failed" when a configured channel
+  // errored — kept distinct so D1 records are easy to triage.
+  const notifyStatus =
+    notify.johnTexted || notify.emailed
       ? "sent"
-      : "failed";
+      : notify.errors.includes("twilio not configured")
+        ? "skipped"
+        : "failed";
 
   if (!notify.johnTexted && !notify.emailed) {
     // Loud log so the operator can see unconfigured/failed delivery and

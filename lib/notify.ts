@@ -167,7 +167,7 @@ async function sendEmail(
     (p.photoUrls.length
       ? `<p><strong>Photos:</strong></p>` +
         p.photoUrls
-          .map((u) => `<p><a href="${u}">${u}</a></p>`)
+          .map((u) => `<p><a href="${escapeHtml(u)}">${escapeHtml(u)}</a></p>`)
           .join("")
       : "");
 

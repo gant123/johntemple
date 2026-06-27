@@ -29,8 +29,10 @@ You'll do the **one-time setup** once, then `npm run deploy` forever after.
 npx wrangler d1 create johntemple-db
 ```
 
-Copy the `database_id` it prints and paste it into **`wrangler.jsonc`**,
-replacing `REPLACE_WITH_YOUR_D1_DATABASE_ID`.
+The database is already wired into **`wrangler.deploy.jsonc`** (`d1_databases[0].database_id`).
+If you ever recreate it, paste the new `database_id` it prints into that field.
+(A D1 `database_id` is an identifier, not a secret — it grants no access without
+the account API token, which lives only in CI/Cloudflare secrets.)
 
 ### 2. Create the photo bucket (R2)
 
@@ -39,7 +41,7 @@ npx wrangler r2 bucket create johntemple-photos
 ```
 
 (R2 requires enabling R2 once in the Cloudflare dashboard — it's free to start.
-The bucket name must match `wrangler.jsonc`.)
+The bucket name must match `wrangler.deploy.jsonc`.)
 
 ### 3. Create the database table
 
@@ -150,7 +152,7 @@ certificate automatically.
 
 | Piece | Cloudflare service | Where it's wired |
 | --- | --- | --- |
-| The website + form + API | Worker | `wrangler.jsonc` `main` → built `dist/server` |
+| The website + form + API | Worker | `wrangler.deploy.jsonc` `main` → built `dist/server` |
 | Lead records | D1 database (`DB`) | `db/schema.ts`, `app/api/quote/route.ts` |
 | Uploaded photos | R2 bucket (`R2`) | `app/api/quote`, served at `/uploads/...` |
 | Text to John | Twilio (via secrets) | `lib/notify.ts` |
@@ -160,5 +162,5 @@ certificate automatically.
 `vinext build` writes a `.wrangler/deploy/config.json` that redirects Wrangler to
 an auto-generated config meant for the OpenAI platform (it carries a placeholder
 database id). `scripts/predeploy.mjs` removes that redirect so Wrangler uses
-**your** `wrangler.jsonc` with your real database and bucket. That's the only
+**your** `wrangler.deploy.jsonc` with your real database and bucket. That's the only
 moving part — everything else is standard Wrangler.

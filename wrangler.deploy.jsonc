@@ -2,6 +2,12 @@
 	// Self-hosted Cloudflare Worker config for Temple Property Care.
 	// The app is built by `npm run build` (vinext) into ./dist, then deployed
 	// with `npm run deploy`. See SELF_HOSTING.md for first-time setup.
+	//
+	// NOTE: intentionally NOT named "wrangler.jsonc". The Cloudflare Vite plugin
+	// used by `npm run dev` auto-discovers a root wrangler.jsonc and merges it
+	// with vite.config's dev bindings, which duplicates nodejs_compat and breaks
+	// the dev runtime. This non-standard name keeps it deploy-only; the npm
+	// scripts pass it explicitly via `wrangler -c wrangler.deploy.jsonc`.
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "johntemple",
 	"main": "dist/server/index.js",
@@ -29,18 +35,15 @@
 	"observability": {
 		"enabled": true
 	},
-	// Lead database. Replace database_id after `wrangler d1 create johntemple-db`.
+	// Lead database. The database_id is created by `wrangler d1 create johntemple-db`.
+	// (A D1 database id is an identifier, not a secret — it grants no access
+	// without the account API token, which lives only in CI/Cloudflare secrets.)
 	"d1_databases": [
 		{
 			"binding": "DB",
 			"database_name": "johntemple-db",
-			"database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+			"database_id": "881037d3-23b1-40e3-b0db-7846d9c4d64b",
 			"migrations_dir": "drizzle"
-		},
-		{
-			"binding": "johntemple_db",
-			"database_name": "johntemple-db",
-			"database_id": "881037d3-23b1-40e3-b0db-7846d9c4d64b"
 		}
 	],
 	// Photo uploads from the quote form.
@@ -48,10 +51,16 @@
 		{
 			"binding": "R2",
 			"bucket_name": "johntemple-photos"
-		},
+		}
+	],
+	// Abuse protection for the public /api/quote endpoint: cap submissions per
+	// client IP so the form can't be used to flood Twilio (cost) or text
+	// arbitrary numbers. 5 requests per 60s per IP.
+	"ratelimits": [
 		{
-			"bucket_name": "johntemple-photos",
-			"binding": "johntemple_photos"
+			"name": "QUOTE_RATE_LIMITER",
+			"namespace_id": "1001",
+			"simple": { "limit": 5, "period": 60 }
 		}
 	]
 }
