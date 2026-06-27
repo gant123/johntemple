@@ -6,14 +6,12 @@ import BeforeAfterGallery, { type Project } from "./before-after-gallery";
 
 const galleryProjects: Project[] = [
   {
-    before:
-      "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=900&q=80",
-    after:
-      "https://images.unsplash.com/photo-1626417288131-55d96b0b5852?auto=format&fit=crop&w=900&q=80",
-    label: "Front lawn refresh",
+    before: "/yard-before.jpg",
+    after: "/yard-after.jpg",
+    label: "Backyard mow & cleanup",
     blurb:
-      "Overgrown and patchy turned into a crisp, even cut with clean edges along the walkway.",
-    tags: ["Lawn Mowing", "Edging"],
+      "Shaggy, overgrown grass brought back to a crisp, even cut — stepping stones and fire pit clean and clear again.",
+    tags: ["Lawn Mowing", "Yard Cleanup"],
   },
   {
     before:
