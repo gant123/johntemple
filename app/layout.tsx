@@ -89,6 +89,7 @@ const jsonLd = {
   image: `${siteUrl}/og-image.jpg`,
   logo: `${siteUrl}/logo.png`,
   url: siteUrl,
+  telephone: "+1-409-229-8694",
   description,
   slogan: "Reliable. Honest. Quality work.",
   address: {

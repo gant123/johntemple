@@ -170,7 +170,7 @@ export default function Home() {
             <a href="#contact">Contact</a>
           </div>
           <a
-            href="tel:+14095550123"
+            href="tel:+14092298694"
             className="rounded-lg bg-white px-5 py-3 text-sm font-extrabold text-[#2E7D32] shadow-lg shadow-black/10 transition hover:-translate-y-0.5"
           >
             Call John
@@ -208,7 +208,7 @@ export default function Home() {
                 Request Free Quote
               </a>
               <a
-                href="tel:+14095550123"
+                href="tel:+14092298694"
                 className="rounded-lg border border-white/50 bg-white/12 px-7 py-4 text-center text-base font-black text-white backdrop-blur transition hover:-translate-y-1 hover:bg-white hover:text-[#2E7D32]"
               >
                 Call John
@@ -382,21 +382,18 @@ export default function Home() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
-                href="tel:+14095550123"
-                className="rounded-lg bg-[#2E7D32] px-6 py-4 text-center font-black text-white"
+                href="tel:+14092298694"
+                className="rounded-lg bg-[#2E7D32] px-6 py-4 text-center font-black text-white transition hover:-translate-y-0.5 hover:bg-[#256a2a]"
               >
-                Call Button
+                Call (409) 229-8694
               </a>
               <a
                 href="mailto:quotes@templepropertycare.com"
-                className="rounded-lg border border-[#cde6cf] px-6 py-4 text-center font-black text-[#2E7D32]"
+                className="rounded-lg border border-[#cde6cf] px-6 py-4 text-center font-black text-[#2E7D32] transition hover:-translate-y-0.5 hover:bg-[#f1f8f1]"
               >
-                Email Button
+                Email John
               </a>
             </div>
-            <p className="mt-7 rounded-lg bg-[#f5f5f5] px-5 py-4 font-black text-[#2E7D32]">
-              Cash App: $jtmeater
-            </p>
           </div>
 
           <QuoteForm services={services.map((service) => service.title)} />
@@ -422,7 +419,7 @@ export default function Home() {
             <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
               Facebook
             </a>
-            <a href="tel:+14095550123">Phone</a>
+            <a href="tel:+14092298694">Phone</a>
             <a href="mailto:quotes@templepropertycare.com">Email</a>
           </div>
         </div>
