@@ -150,8 +150,16 @@ export default function Home() {
           aria-label="Main navigation"
           className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8"
         >
-          <a href="#home" className="text-lg font-black text-white">
-            Temple Property Care
+          <a
+            href="#home"
+            aria-label="Temple Property Care home"
+            className="inline-flex items-center rounded-lg bg-white/95 px-3 py-1.5 shadow-lg shadow-black/10 backdrop-blur"
+          >
+            <img
+              src="/logo.png"
+              alt="Temple Property Care"
+              className="h-10 w-auto sm:h-12"
+            />
           </a>
           <div className="hidden items-center gap-7 rounded-lg bg-white/92 px-6 py-3 text-sm font-semibold text-[#214625] shadow-lg shadow-black/10 backdrop-blur md:flex">
             <a href="#home">Home</a>
@@ -398,8 +406,14 @@ export default function Home() {
       <footer className="bg-[#143817] px-5 py-10 text-white sm:px-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <h2 className="text-2xl font-black">Temple Property Care</h2>
-            <p className="mt-2 text-white/75">Serving Southeast Texas</p>
+            <div className="inline-flex rounded-lg bg-white px-4 py-3 shadow-lg shadow-black/20">
+              <img
+                src="/logo.png"
+                alt="Temple Property Care"
+                className="h-16 w-auto"
+              />
+            </div>
+            <p className="mt-4 text-white/75">Serving Southeast Texas</p>
             <p className="mt-4 text-sm text-white/65">
               Website proudly donated and designed by Moe Media.
             </p>
