@@ -278,8 +278,8 @@ export default function Home() {
       <section id="about" className="px-5 py-16 sm:px-8 sm:py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <img
-            src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=1200&q=85"
-            alt="Freshly maintained lawn and garden beds"
+            src="/john-temple.jpg"
+            alt="John Temple of Temple Property Care"
             className="h-80 w-full rounded-lg object-cover shadow-[0_22px_55px_rgba(25,67,31,0.16)] sm:h-[420px]"
           />
           <div>
@@ -373,12 +373,16 @@ export default function Home() {
               Contact
             </p>
             <h2 className="mt-3 text-3xl font-black sm:text-4xl">
-              Not a portal. Just a smart form.
+              Tell John what your property needs
             </h2>
             <p className="mt-5 text-base leading-8 text-[#516153]">
-              No accounts, no app, no runaround. Fill out a few details, add a
-              photo or two, and hit submit. John gets a text the moment you do,
-              and you get a confirmation. That&apos;s it.
+              Share a few details about the work, the best way to reach you,
+              and any photos that help John understand the job. He&apos;ll review
+              your request and get back with a clear, honest quote.
+            </p>
+            <p className="mt-4 text-base leading-8 text-[#516153]">
+              Need to talk it through first? Give John a call and he&apos;ll help
+              you figure out the next step.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
@@ -386,12 +390,6 @@ export default function Home() {
                 className="rounded-lg bg-[#2E7D32] px-6 py-4 text-center font-black text-white transition hover:-translate-y-0.5 hover:bg-[#256a2a]"
               >
                 Call (409) 229-8694
-              </a>
-              <a
-                href="mailto:quotes@templepropertycare.com"
-                className="rounded-lg border border-[#cde6cf] px-6 py-4 text-center font-black text-[#2E7D32] transition hover:-translate-y-0.5 hover:bg-[#f1f8f1]"
-              >
-                Email John
               </a>
             </div>
           </div>
@@ -420,7 +418,6 @@ export default function Home() {
               Facebook
             </a>
             <a href="tel:+14092298694">Phone</a>
-            <a href="mailto:quotes@templepropertycare.com">Email</a>
           </div>
         </div>
       </footer>
